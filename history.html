@@ -3,53 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scan History - Sustainable Food Tracker</title>
+    <title>Product Details - Sustainable Food Tracker</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
+        <!-- Header -->
         <header class="page-header">
-            <h1>
-                <i class="fas fa-history"></i>
-                Scan History
-            </h1>
-            <button onclick="clearHistory()" class="clear-button">
-                <i class="fas fa-trash"></i>
-                Clear All
+            <button onclick="goBack()" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                Back to Search
             </button>
         </header>
 
-        <main class="history-content">
-            <!-- Filter Options -->
-            <div class="filter-bar">
-                <button class="filter-button active" data-filter="all">
-                    All Products
-                </button>
-                <button class="filter-button" data-filter="healthy">
-                    <i class="fas fa-heart"></i>
-                    Healthy (A-B)
-                </button>
-                <button class="filter-button" data-filter="eco">
-                    <i class="fas fa-leaf"></i>
-                    Eco-Friendly
-                </button>
+        <!-- Loading State -->
+        <div id="productLoading" class="loading-state">
+            <div class="spinner"></div>
+            <p>Loading product details...</p>
+        </div>
+
+        <!-- Product Details -->
+        <main id="productDetails" class="product-details hidden">
+            <div class="product-layout">
+                <!-- Product Image & Info -->
+                <section class="product-main">
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img id="productImage" src="" alt="Product" class="product-image">
+                        </div>
+                        <h1 id="productName" class="product-name"></h1>
+                        <p id="productBrand" class="product-brand"></p>
+                    </div>
+                </section>
+
+                <!-- Scores & Alerts -->
+                <section class="product-sidebar">
+                    <!-- Scores Card -->
+                    <div class="scores-card">
+                        <h2 class="card-title">
+                            <i class="fas fa-star"></i>
+                            Health & Environmental Scores
+                        </h2>
+                        <div class="scores-grid">
+                            <div class="score-item">
+                                <h3>Nutri-Score</h3>
+                                <div id="nutriScore" class="grade-badge"></div>
+                                <p class="score-description">Nutritional quality indicator</p>
+                            </div>
+                            <div class="score-item">
+                                <h3>Eco-Score</h3>
+                                <div id="ecoScore" class="grade-badge"></div>
+                                <p class="score-description">Environmental impact rating</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alerts Card -->
+                    <div id="alertsCard" class="alerts-card hidden">
+                        <h2 class="card-title">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Alerts
+                        </h2>
+                        <div id="additivesSection" class="alert-section hidden">
+                            <h3>Additives</h3>
+                            <div id="additivesList" class="badges-list"></div>
+                        </div>
+                        <div id="allergensSection" class="alert-section hidden">
+                            <h3>Allergens</h3>
+                            <div id="allergensList" class="badges-list"></div>
+                        </div>
+                    </div>
+                </section>
             </div>
 
-            <!-- History List -->
-            <div id="historyList" class="history-list">
-                <!-- History items will be inserted here -->
-            </div>
+            <!-- Nutrition Facts -->
+            <section id="nutritionSection" class="nutrition-section hidden">
+                <h2 class="section-title">
+                    <i class="fas fa-chart-bar"></i>
+                    Nutrition Facts (per 100g)
+                </h2>
+                <div class="nutrition-grid" id="nutritionGrid"></div>
+            </section>
 
-            <!-- Empty State -->
-            <div id="emptyState" class="empty-state-container hidden">
-                <i class="fas fa-inbox"></i>
-                <h3>No History Yet</h3>
-                <p>Start searching for products to see them here</p>
-                <a href="index.html" class="primary-button">
-                    Search Products
-                </a>
-            </div>
+            <!-- Categories -->
+            <section id="categoriesSection" class="categories-section hidden">
+                <h2 class="section-title">
+                    <i class="fas fa-tags"></i>
+                    Categories
+                </h2>
+                <div id="categoriesList" class="badges-list"></div>
+            </section>
         </main>
 
         <!-- Navigation -->
@@ -58,7 +102,7 @@
                 <i class="fas fa-home"></i>
                 <span>Home</span>
             </a>
-            <a href="history.html" class="nav-link active">
+            <a href="history.html" class="nav-link">
                 <i class="fas fa-history"></i>
                 <span>History</span>
             </a>
@@ -71,7 +115,8 @@
 
     <script src="script.js"></script>
     <script>
-        window.addEventListener('DOMContentLoaded', loadHistory);
+        // Load product on page load
+        window.addEventListener('DOMContentLoaded', loadProduct);
     </script>
 </body>
-</html>
+</html>                
