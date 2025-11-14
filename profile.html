@@ -1,106 +1,78 @@
-<!DOCTYPE html>
+[15/11/25, 4:13:02 AM] ~Nishi: <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details - Sustainable Food Tracker</title>
+    <title>Profile - Sustainable Food Tracker</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
     <div class="container">
         <header class="page-header">
-            <button onclick="goBack()" class="back-button">
-                <i class="fas fa-arrow-left"></i>
-                Back to Search
-            </button>
+            <h1>
+                <i class="fas fa-user-circle"></i>
+                My Profile
+            </h1>
         </header>
 
-        <!-- Loading State -->
-        <div id="productLoading" class="loading-state">
-            <div class="spinner"></div>
-            <p>Loading product details...</p>
-        </div>
-
-        <!-- Product Details -->
-        <main id="productDetails" class="product-details hidden">
-            <!-- Product Header Card -->
-            <div class="product-header-card">
-                <div class="product-image-container">
-                    <img id="productImage" src="" alt="Product" class="product-image">
+        <main class="profile-content">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="ecoPoints">0</span>
+                        <span class="stat-label">Eco Points</span>
+                    </div>
                 </div>
-                <div class="product-header-info">
-                    <h1 id="productName" class="product-name"></h1>
-                    <p id="productBrand" class="product-brand"></p>
+
+                <div class="stat-card">
+                    <div class="stat-icon health">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="totalScans">0</span>
+                        <span class="stat-label">Products Scanned</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon trophy">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="level">1</span>
+                        <span class="stat-label">Level</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Scores Section -->
-            <section class="scores-section">
-                <div class="scores-card" style="display: block;">
-                    <h2 class="card-title">
-                        <i class="fas fa-star"></i>
-                        Health & Environmental Scores
-                    </h2>
-                    <div class="scores-grid">
-                        <div class="score-item">
-                            <h3>Nutri-Score</h3>
-                            <div id="nutriScore" class="grade-badge">N/A</div>
-                            <p class="score-description">Nutritional quality indicator</p>
-                        </div>
-                        <div class="score-item">
-                            <h3>Eco-Score</h3>
-                            <div id="ecoScore" class="grade-badge">N/A</div>
-                            <p class="score-description">Environmental impact rating</p>
-                        </div>
-                        <div class="score-item">
-                            <h3>CO₂ Impact</h3>
-                            <div id="co2Score" class="co2-badge">
-                                <span id="co2Value">-</span>
-                            </div>
-                            <p class="score-description">Carbon footprint</p>
-                        </div>
+            <!-- Level Progress -->
+            <section class="level-section">
+                <h2 class="section-title">
+                    <i class="fas fa-chart-line"></i>
+                    Your Impact Score
+                </h2>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill"></div>
+                    </div>
+                    <div class="progress-info">
+                        <span id="currentPoints">0</span> / <span id="nextLevelPoints">100</span> points to next level
                     </div>
                 </div>
             </section>
 
-            <!-- Ingredients Section -->
-            <section id="ingredientsSection" class="ingredients-section hidden">
+            <!-- Recent Activity -->
+            <section class="activity-section">
                 <h2 class="section-title">
-                    <i class="fas fa-list"></i>
-                    Ingredients
+                    <i class="fas fa-clock"></i>
+                    Recent Activity
                 </h2>
-                <div id="ingredientsList" class="ingredients-list"></div>
-            </section>
-
-            <!-- Additives Section -->
-            <section id="additivesSection" class="additives-section hidden">
-                <h2 class="section-title">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    Additives
-                </h2>
-                <div id="additivesList" class="badges-list"></div>
-            </section>
-
-            <!-- Nutrition Facts -->
-            <section id="nutritionSection" class="nutrition-section hidden">
-                <h2 class="section-title">
-                    <i class="fas fa-chart-bar"></i>
-                    Nutrition Facts (per 100g)
-                </h2>
-                <div class="nutrition-grid" id="nutritionGrid"></div>
-            </section>
-
-            <!-- Nutrition Chart -->
-            <section id="nutritionChartSection" class="nutrition-chart-section hidden">
-                <h2 class="section-title">
-                    <i class="fas fa-chart-pie"></i>
-                    Nutrition Visualization
-                </h2>
-                <div class="chart-container">
-                    <canvas id="nutritionChart"></canvas>
-                </div>
+                <div id="recentActivity" class="activity-list"></div>
             </section>
         </main>
 
@@ -114,7 +86,7 @@
                 <i class="fas fa-history"></i>
                 <span>History</span>
             </a>
-            <a href="profile.html" class="nav-link">
+            <a href="profile.html" class="nav-link active">
                 <i class="fas fa-user"></i>
                 <span>Profile</span>
             </a>
@@ -124,16 +96,8 @@
     <script src="storage.js"></script>
     <script src="app.js"></script>
     <script>
-        // Load product on page load
-        window.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const barcode = urlParams.get('barcode');
-            if (barcode) {
-                loadProduct(barcode);
-            } else {
-                window.location.href = 'index.html';
-            }
-        });
+        window.addEventListener('DOMContentLoaded', loadProfilePage);
     </script>
 </body>
 </html>
+[15/11/25, 4:13:06 AM] ~Nishi: profile.html              
