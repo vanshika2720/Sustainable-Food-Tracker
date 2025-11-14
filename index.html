@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sustainable Food Tracker - Health & Environmental Impact</title>
-    <meta name="description" content="Discover the health and environmental impact of your food choices with clear grades, nutrition facts, and eco-scores powered by OpenFoodFacts.">
+    <title>Sustainable Food Tracker - Home</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- QuaggaJS for barcode scanning -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -16,9 +19,7 @@
                     <i class="fas fa-leaf"></i>
                 </div>
                 <h1>Sustainable Food Tracker</h1>
-
                 <h2>EcoBite</h2>
-
                 <p class="hero-description">
                     Make informed choices for your health and the planet. Scan or search products to discover their nutritional value and environmental impact.
                 </p>
@@ -33,38 +34,33 @@
                         placeholder="Enter product name or barcode..." 
                         class="search-input"
                         required
-                    >
+                    />
                     <button type="submit" class="search-button">
                         <i class="fas fa-search"></i>
-                        Search
+                        <span>Search</span>
                     </button>
                 </form>
+                
+                <!-- Scanner Button -->
+                <button id="scannerBtn" class="scanner-button">
+                    <i class="fas fa-camera"></i>
+                    <span>Scan Barcode</span>
+                </button>
             </div>
 
-            <!-- Features Grid -->
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-heart"></i>
+            <!-- Scanner Modal -->
+            <div id="scannerModal" class="modal hidden">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Scan Barcode</h2>
+                        <button id="closeScanner" class="close-btn">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
-                    <h3>Health Grades</h3>
-                    <p>Clear A-E ratings showing nutritional quality at a glance</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-leaf"></i>
+                    <div id="scannerContainer" class="scanner-container">
+                        <div id="scanner"></div>
+                        <p class="scanner-hint">Point your camera at a barcode</p>
                     </div>
-                    <h3>Eco-Score</h3>
-                    <p>Understand the environmental footprint of your food choices</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Detailed Insights</h3>
-                    <p>Complete nutrition facts, additives, and allergen information</p>
                 </div>
             </div>
         </header>
@@ -98,6 +94,8 @@
         </nav>
     </div>
 
-    <script src="script.js"></script>
+    <script src="storage.js"></script>
+    <script src="scanner.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
