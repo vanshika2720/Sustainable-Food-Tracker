@@ -17,7 +17,7 @@ function validateSearchQuery(query) {
         return { valid: false, error: 'Search query is too long (max 200 characters)' };
     }
     
-    // Check for potentially malicious patterns
+
     const dangerousPatterns = /<script|javascript:|onerror=|onclick=/i;
     if (dangerousPatterns.test(trimmed)) {
         return { valid: false, error: 'Invalid search query' };
@@ -26,7 +26,7 @@ function validateSearchQuery(query) {
     return { valid: true, query: trimmed };
 }
 
-// Local Storage Keys
+
 const STORAGE_KEYS = {
     HISTORY: 'foodTracker_history',
     STATS: 'foodTracker_stats'
@@ -48,7 +48,7 @@ function initStats() {
     }
 }
 
-// Get stats from localStorage
+
 function getStats() {
     const stats = localStorage.getItem(STORAGE_KEYS.STATS);
     return stats ? JSON.parse(stats) : {
@@ -59,12 +59,12 @@ function getStats() {
     };
 }
 
-// Save stats to localStorage
+
 function saveStats(stats) {
     localStorage.setItem(STORAGE_KEYS.STATS, JSON.stringify(stats));
 }
 
-// Update stats
+
 function updateStats(product) {
     const stats = getStats();
     stats.totalScans++;
@@ -82,13 +82,13 @@ function updateStats(product) {
     saveStats(stats);
 }
 
-// Get history from localStorage
+
 function getHistory() {
     const history = localStorage.getItem(STORAGE_KEYS.HISTORY);
     return history ? JSON.parse(history) : [];
 }
 
-// Add to history
+
 function addToHistory(product) {
     const history = getHistory();
     const existingIndex = history.findIndex(item => item.code === product.code);
@@ -109,7 +109,7 @@ function addToHistory(product) {
         history.unshift(historyItem);
     }
     
-    // Keep only last 50 items
+
     if (history.length > 50) {
         history.pop();
     }
@@ -232,7 +232,7 @@ async function loadProduct() {
         return;
     }
     
-    // Validate barcode from URL
+ 
     const validation = validateSearchQuery(barcode);
     if (!validation.valid || !/^\d{8,13}$/.test(barcode)) {
         alert('Invalid barcode');
@@ -250,11 +250,11 @@ async function loadProduct() {
         if (data.status === 1 && data.product) {
             const product = data.product;
             
-            // Update stats and history
+            
             updateStats(product);
             addToHistory(product);
             
-            // Display product
+            
             displayProduct(product);
             
             loadingState.classList.add('hidden');
@@ -390,7 +390,7 @@ function displayProduct(product) {
     }
 }
 
-// Load history
+
 function loadHistory() {
     const historyList = $('historyList');
     const emptyState = $('emptyState');
@@ -408,7 +408,7 @@ function loadHistory() {
     }
 }
 
-// Display history items
+
 function displayHistoryItems(items) {
     const historyList = $('historyList');
     
@@ -442,7 +442,7 @@ function displayHistoryItems(items) {
     }).join('');
 }
 
-// Filter history
+
 function filterHistory(filter) {
     const history = getHistory();
     let filtered = history;
@@ -460,7 +460,7 @@ function filterHistory(filter) {
     displayHistoryItems(filtered);
 }
 
-// Load profile
+
 function loadProfile() {
     const stats = getStats();
     
@@ -474,7 +474,7 @@ function loadProfile() {
     if (healthyChoices) healthyChoices.textContent = stats.healthyChoices;
     if (achievementsCount) achievementsCount.textContent = stats.achievementsUnlocked.length;
     
-    // Display recent activity
+ 
     const recentActivity = $('recentActivity');
     if (recentActivity) {
         const history = getHistory().slice(0, 5);
