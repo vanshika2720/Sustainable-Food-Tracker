@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Sustainable Food Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="page-header">
+            <button onclick="goBack()" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                Back to Search
+            </button>
+        </header>
+
+        <!-- Loading State -->
+        <div id="productLoading" class="loading-state">
+            <div class="spinner"></div>
+            <p>Loading product details...</p>
+        </div>
+
+        <!-- Product Details -->
+        <main id="productDetails" class="product-details hidden">
+            <div class="product-layout">
+                <!-- Product Image & Info -->
+                <section class="product-main">
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img id="productImage" src="" alt="Product" class="product-image">
+                        </div>
+                        <h1 id="productName" class="product-name"></h1>
+                        <p id="productBrand" class="product-brand"></p>
+                    </div>
+                </section>
+
+                <!-- Scores & Alerts -->
+                <section class="product-sidebar">
+                    <!-- Scores Card -->
+                    <div class="scores-card">
+                        <h2 class="card-title">
+                            <i class="fas fa-star"></i>
+                            Health & Environmental Scores
+                        </h2>
+                        <div class="scores-grid">
+                            <div class="score-item">
+                                <h3>Nutri-Score</h3>
+                                <div id="nutriScore" class="grade-badge">Loading...</div>
+                                <p class="score-description">Nutritional quality indicator</p>
+                            </div>
+                            <div class="score-item">
+                                <h3>Eco-Score</h3>
+                                <div id="ecoScore" class="grade-badge">Loading...</div>
+                                <p class="score-description">Environmental impact rating</p>
+                            </div>
+                            <div class="score-item">
+                                <h3>CO₂ Impact</h3>
+                                <div id="co2Value" class="co2-value">Loading...</div>
+                                <p class="score-description">Carbon footprint</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alerts Card -->
+                    <div id="alertsCard" class="alerts-card">
+                        <h2 class="card-title">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Alerts & Health Tips
+                        </h2>
+                        <div id="additivesSection" class="alert-section">
+                            <h3>Additives</h3>
+                            <div id="additivesList" class="badges-list"></div>
+                        </div>
+                        <div id="healthInitiativesSection" class="alert-section health-initiatives">
+                            <h3>
+                                <i class="fas fa-heart"></i>
+                                Health Initiatives
+                            </h3>
+                            <div id="healthInitiativesList" class="health-tips-list"></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Ingredients Section -->
+            <section id="ingredientsSection" class="ingredients-section hidden">
+                <h2 class="section-title">
+                    <i class="fas fa-list"></i>
+                    Ingredients
+                </h2>
+                <div id="ingredientsList" class="ingredients-text"></div>
+            </section>
+
+            <!-- Nutrition Facts -->
+            <section id="nutritionSection" class="nutrition-section hidden">
+                <h2 class="section-title">
+                    <i class="fas fa-chart-bar"></i>
+                    Nutrition Facts (per 100g)
+                </h2>
+                <div class="nutrition-grid" id="nutritionGrid"></div>
+            </section>
+
+            <!-- Nutrition Chart -->
+            <section id="nutritionChartSection" class="nutrition-chart-section hidden">
+                <h2 class="section-title">
+                    <i class="fas fa-chart-pie"></i>
+                    Nutritional Values Comparison
+                </h2>
+                <div class="chart-container">
+                    <canvas id="nutritionChart"></canvas>
+                </div>
+            </section>
+        </main>
+
+        <!-- Navigation -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="nav-link">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="history.html" class="nav-link">
+                <i class="fas fa-history"></i>
+                <span>History</span>
+            </a>
+            <a href="profile.html" class="nav-link">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </nav>
+    </div>
+
+    <script src="storage.js"></script>
+    <script src="app.js"></script>
+    <script>
+        // Load product on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const barcode = urlParams.get('barcode');
+            if (barcode) {
+                loadProduct(barcode);
+            } else {
+                alert('No barcode provided');
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>

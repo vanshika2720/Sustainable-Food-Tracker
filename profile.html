@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Sustainable Food Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <h1>
+                <i class="fas fa-user-circle"></i>
+                My Profile
+            </h1>
+        </header>
+
+        <main class="profile-content">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="ecoPoints">0</span>
+                        <span class="stat-label">Eco Points</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon health">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="totalScans">0</span>
+                        <span class="stat-label">Products Scanned</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon trophy">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="level">1</span>
+                        <span class="stat-label">Level</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Overall Impact Score Card -->
+            <section class="profile-impact-section">
+                <div class="profile-impact-card">
+                    <div class="profile-impact-header">
+                        <h2 class="section-title">
+                            <i class="fas fa-chart-line"></i>
+                            Your Overall Impact Score
+                        </h2>
+                        <div id="impactTag" class="impact-tag">Calculating...</div>
+                    </div>
+                    <div class="profile-impact-display">
+                        <div id="profileImpactScore" class="profile-impact-value">-</div>
+                        <div id="profileImpactTitle" class="profile-impact-title">Loading...</div>
+                        <div id="profileImpactRange" class="profile-impact-range"></div>
+                    </div>
+                    <div class="profile-impact-breakdown">
+                        <div class="profile-impact-item">
+                            <span class="profile-impact-label">
+                                <i class="fas fa-apple-alt"></i>
+                                Avg Nutri-Score:
+                            </span>
+                            <span id="profileAvgNutri" class="profile-impact-grade">-</span>
+                        </div>
+                        <div class="profile-impact-item">
+                            <span class="profile-impact-label">
+                                <i class="fas fa-globe"></i>
+                                Avg Eco-Score:
+                            </span>
+                            <span id="profileAvgEco" class="profile-impact-grade">-</span>
+                        </div>
+                        <div class="profile-impact-item">
+                            <span class="profile-impact-label">
+                                <i class="fas fa-smog"></i>
+                                Avg CO₂ Impact:
+                            </span>
+                            <span id="profileAvgCo2" class="profile-impact-co2">-</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Level Progress -->
+            <section class="level-section">
+                <h2 class="section-title">
+                    <i class="fas fa-trophy"></i>
+                    Level Progress
+                </h2>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill"></div>
+                    </div>
+                    <div class="progress-info">
+                        <span id="currentPoints">0</span> / <span id="nextLevelPoints">100</span> points to next level
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Activity -->
+            <section class="activity-section">
+                <h2 class="section-title">
+                    <i class="fas fa-clock"></i>
+                    Recent Activity
+                </h2>
+                <div id="recentActivity" class="activity-list"></div>
+            </section>
+        </main>
+
+        <!-- Navigation -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="nav-link">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="history.html" class="nav-link">
+                <i class="fas fa-history"></i>
+                <span>History</span>
+            </a>
+            <a href="profile.html" class="nav-link active">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </nav>
+    </div>
+
+    <script src="storage.js"></script>
+    <script src="app.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', loadProfilePage);
+    </script>
+</body>
+</html>
